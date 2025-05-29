@@ -1,36 +1,81 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Ollama + Mistral Chat App
 
-## Getting Started
+A simple AI chat application built with Next.js (App Router) that integrates with [Ollama](https://ollama.com/) to chat with locally installed language models like Mistral, LLaMA 3, Gemma, and Phi.  
+Supports streaming responses and file upload input.
 
-First, run the development server:
+---
+
+## Features
+
+- Fetches installed Ollama models dynamically
+- Chat UI with Markdown and syntax-highlighted code blocks
+- Streaming AI responses
+- Upload `.txt` or `.md` files to append input
+- Save chat history in localStorage
+- Model selection from available Ollama models
+
+---
+
+## Prerequisites
+
+- [Node.js](https://nodejs.org/) (v18+ recommended)
+- [Ollama CLI](https://ollama.com/docs/cli) installed and accessible in your system PATH
+
+---
+
+## Installation
+
+### 1. Install Ollama CLI
+
+Follow official instructions:  
+[https://ollama.com/docs/cli](https://ollama.com/docs/cli)
+
+Verify installation:
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+ollama version
+```
+### 2. Install Ollama Models
+Example:
+
+```bash
+ollama pull mistral
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Make sure these models are installed locally by running:
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+```aiignore
+ollama list
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+###  Setup and run Next.js app
+Clone this repo and install dependencies:
 
-## Learn More
+```aiignore
+git clone <your-repo-url>
+cd <your-repo-directory>
+npm install
+```
 
-To learn more about Next.js, take a look at the following resources:
+Start development server:
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+```aiignore
+npm run dev
+```
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+Open http://localhost:3000 in your browser.
 
-## Deploy on Vercel
+### Project Structure Highlights
+/app/api/models/route.js - API route fetching installed models by executing ollama list
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+/app/page.jsx - Main chat page with UI and client-side logic
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+Uses React hooks and streaming fetch to provide smooth chat experience
+
+Markdown rendering with react-markdown and syntax highlighting with rehype-highlight
+
+### Usage
+Select a model from the dropdown
+Type messages and press Enter or click Send
+Upload .txt or .md files to append to the input area
+Chat history is saved in browser localStorage
